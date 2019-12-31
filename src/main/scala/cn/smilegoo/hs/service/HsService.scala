@@ -63,25 +63,25 @@ class HsService {
             sendMail(sm)
         }
         redis.close()
-        var nextTime = "2020-01-22:2020-01-23"
+        var nextTime = "2020-01-22"
         orgDate match {
             case "2020-01-22"=>{
-                nextTime="2020-01-23:2020-01-24"
+                nextTime="2020-01-23"
             }
             case "2020-01-23"=>{
-                nextTime = "2020-01-24:2020-01-25"
+                nextTime = "2020-01-24"
             }
             case "2020-01-29"=>{
-                nextTime = "2020-01-30:2020-01-31"
+                nextTime = "2020-01-30"
             }
             case "2020-01-30"=>{
-                nextTime = "2020-01-31:2020-02-01"
+                nextTime = "2020-01-31"
             }
             case "2020-01-31"=>{
-                nextTime = "2020-02-01:2020-02-02"
+                nextTime = "2020-02-01"
             }
             case "2020-02-01"=>{
-                nextTime = "2020-01-29:2020-01-30"
+                nextTime = "2020-01-29"
             }
         }
         nextTime
