@@ -24,6 +24,16 @@ class HsServiceController {
   def reportPrice(@PathVariable platform:String,@PathVariable flightNo:String,@PathVariable orgDate:String,@PathVariable time:String,@PathVariable price:String,@PathVariable spare:String):String ={
     hsService.reportPrice(platform,flightNo,orgDate,time,price,spare)
   }
-
+  @ApiImplicitParams(
+    Array(
+    )
+  )
+  @ApiOperation(value = "获取所有价格",
+    notes = "")
+  @RequestMapping(value = Array("/price/all"),method = Array(RequestMethod.POST),produces = Array(MediaType.APPLICATION_JSON_VALUE))
+  def listAllPrice():ResponseEntity[JSONObject] ={
+    val responseEntity = new ResponseEntity[JSONObject](hsService.listPrices(),HttpStatus.OK)
+    responseEntity
+  }
 
 }

@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 
 import cn.hutool.extra.mail.{MailAccount, MailUtil}
+import com.alibaba.fastjson.{JSONArray, JSONObject}
 import javax.annotation.PostConstruct
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig
 import org.springframework.beans.factory.annotation.Autowired
@@ -87,7 +88,25 @@ class HsService {
         nextTime
     }
 
-
+    def listPrices():JSONObject = {
+        val redis = getRedisInstance(2)
+        val jsa = new JSONArray()
+        val rst = new JSONObject()
+        redis.keys("*").foreach(day=>{
+            val jso = new JSONObject()
+            val jsa1 = new JSONArray()
+            redis.hkeys(day).foreach(k=>{
+                val v = redis.hget(day,k)
+                jsa1.add(k+":"+v)
+            })
+            jso.put(day.substring(day.lastIndexOf(":")+1),jsa1)
+            jsa.add(jso)
+        })
+        redis.close()
+        rst.put("count", jsa.size())
+        rst.put("messages",jsa)
+        rst
+    }
 
     private def getRedisInstance(db:Int):Jedis = {
         var jedis:Jedis = null
