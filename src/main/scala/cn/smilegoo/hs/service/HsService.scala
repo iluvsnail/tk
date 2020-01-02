@@ -59,7 +59,7 @@ class HsService {
             redis.hset(key,hv,v)
             var sm = orgDate+" "+time+" "+flightNo+"\n旧的：\n    "+op+"\n新的："
             redis.hkeys(key).foreach(k=>{
-               sm+=("\n    "+key+"  "+redis.hget(key,k))
+               sm+=("\n    "+k+"  "+redis.hget(key,k))
             })
             sendMail(sm)
         }
